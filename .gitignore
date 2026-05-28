@@ -1,0 +1,48 @@
+# macOS
+.DS_Store
+.AppleDouble
+.LSOverride
+Icon?
+._*
+
+# Editors
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+.cursor/
+
+# Env / secrets
+.env
+.env.*
+!.env.example
+*.key
+*.pem
+secrets/
+
+# Local-only skills / drafts
+skills/*/.local/
+skills/_*/
+drafts/
+scratch/
+
+# Build / export artifacts
+dist/
+build/
+*.log
+codex-bundle.md
+*.bundle.md
+
+# Python (if any resources/ uses scripts)
+__pycache__/
+*.py[cod]
+.venv/
+venv/
+
+# Node (same)
+node_modules/
+npm-debug.log*
+
+# OS / misc
+Thumbs.db
