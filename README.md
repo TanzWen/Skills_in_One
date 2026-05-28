@@ -69,3 +69,28 @@ description: 一句话说明何时触发（最重要，用于路由）
 ```
 
 详见 [templates/my-skill/SKILL.md](templates/my-skill/SKILL.md)。
+
+## 已有 skills
+
+| 名称 | 说明 |
+|---|---|
+| [bazi](skills/bazi/) | 解八字命盘。提供八字排盘截图或文字时触发。 |
+| [ziwei](skills/ziwei/) | 解紫微斗数命盘。融合三合派星曜格局与飞星派四化体系。 |
+| [liuyao](skills/liuyao/) | 解六爻卦，支持从零排盘（截图 / 得数 / 卦名 + 动爻 / 关键词触发）。 |
+| [trinity-destiny](skills/trinity-destiny/) | 八字 + 紫微 + 西洋星盘三盘合参的综合命理分析。 |
+| [travel-guide](skills/travel-guide/) | 生成实用的旅行攻略文档，支持联网搜索最新信息。 |
+
+## 云同步到 claude.ai
+
+Anthropic 目前没有公开的推送 API。`~/Library/Application Support/Claude/.../skills-plugin/` 这个 bundle 是 **单向只读缓存**（cloud → local），直接改本地不会回传。
+
+要把本仓库里的 skill 推到 claude.ai 账户（同步给网页端 / Claude Desktop / Cowork），手动走一次上传：
+
+1. 把目标 skill 目录打包成 zip（含 `SKILL.md` 和可选 `resources/`）：
+   ```bash
+   cd skills && zip -r ../dist/liuyao.zip liuyao
+   ```
+2. 打开 [claude.ai](https://claude.ai) → Settings → Skills → **Upload**，选刚才那个 zip。
+3. 同名 skill 会覆盖云端版本（注意备份）。
+
+跨机器同步直接走 git pull 本仓库即可，不依赖云端。
