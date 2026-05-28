@@ -22,9 +22,15 @@ description: 用一句话描述何时该触发此 skill。例如"当用户请求
 2. 第二步：……
 3. 第三步：……
 
-如需引用脚本或参考资料，放在 `resources/` 下，并在此用相对路径引用：
+按需引用同目录下的辅助文件（按职责分目录，与 Anthropic 官方 skill 约定一致）：
 
-> 参考 `resources/notes.md` 中的规则表。
+- `references/` — **参考资料**（查表、案例、术语表）。模型按需 Read，不会全量加载。
+- `scripts/` — **可执行脚本**（Python / Bash / Node）。模型可以直接调用，比反复让模型推理更可靠。
+- `assets/` — **静态素材**（模板、字体、图片、示例文件），运行时复制/引用，不被模型阅读。
+
+示例：
+
+> 调用 `scripts/calc.py <args>` 计算结果；查表见 `references/lookup.md`；模板在 `assets/template.docx`。
 
 ## 输出格式
 

@@ -11,7 +11,9 @@ Skills_in_One/
 │   └── <skill-name>/
 │       ├── SKILL.md         ← 单一数据源（Claude 原生格式）
 │       ├── PROMPT.md        ← 可选：纯文本版，给 Codex/Gemini 直接粘贴
-│       └── resources/       ← 可选：参考文档、脚本、示例
+│       ├── references/      ← 可选：参考资料，模型按需 Read
+│       ├── scripts/         ← 可选：可执行脚本（Python/Bash/Node）
+│       └── assets/          ← 可选：模板/素材/示例文件
 ├── templates/
 │   └── my-skill/            ← 复制此目录新建 skill
 ├── scripts/
