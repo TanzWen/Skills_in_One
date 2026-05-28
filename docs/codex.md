@@ -1,47 +1,67 @@
 # 在 Codex CLI 中使用
 
-Codex 没有原生 skill 机制，但支持通过 `AGENTS.md`（项目级）或自定义 system prompt 注入指令。
+Codex CLI 原生支持 skills，格式与 Claude Code **完全一致**（`SKILL.md` + YAML frontmatter）。
+官方文档：<https://developers.openai.com/codex/skills>
 
-## 方式 A：项目级 AGENTS.md
+## 扫描位置
 
-把导出内容追加到当前项目的 `AGENTS.md`：
+| 范围 | 路径 |
+|---|---|
+| 用户级（全局） | `~/.agents/skills/<name>/SKILL.md` |
+| 项目级 | `<repo>/.agents/skills/<name>/SKILL.md` |
 
-```bash
-bash scripts/export.sh skills/<skill-name> >> AGENTS.md
-```
+> 注意是 `~/.agents/`，不是 `~/.codex/`。
 
-Codex 启动时会自动读取 `AGENTS.md`。
+## 安装本仓库里的 skills
 
-## 方式 B：全局规则
-
-把导出内容放进 `~/.codex/AGENTS.md`（或你的 Codex 全局配置位置），所有会话都会加载。
-
-```bash
-bash scripts/export.sh skills/<skill-name> >> ~/.codex/AGENTS.md
-```
-
-## 方式 C：单次粘贴
+全局：
 
 ```bash
-bash scripts/export.sh skills/<skill-name> | pbcopy
+bash scripts/install-codex.sh
 ```
 
-然后在 Codex 会话开头粘贴。
-
-## 多 skill 合并
+只对当前项目生效：
 
 ```bash
-for d in skills/*/; do
-  echo "## $(basename "$d")"
-  bash scripts/export.sh "$d"
-  echo
-done > codex-bundle.md
+cd /path/to/your/project
+bash /Users/tanzhiwen/Documents/code/Skills_in_One/scripts/install-codex.sh --project
 ```
 
-## 注意
+自定义目标位置：
 
-- 导出脚本会自动剥离 YAML frontmatter。
-- 如果 skill 引用了 `resources/` 下的文件，加 `--with-resources` 把内容内联进来：
-  ```bash
-  bash scripts/export.sh skills/<name> --with-resources
-  ```
+```bash
+CODEX_SKILLS_DIR=~/some/other/dir bash scripts/install-codex.sh
+```
+
+脚本会把 `skills/*` 软链过去，修改源文件实时生效。Codex 已运行时需重启。
+
+## 安装官方/精选 skill
+
+在 Codex 会话里：
+
+```
+$skill-installer <skill名>
+```
+
+例如 `$skill-installer linear`。
+
+## 禁用某个 skill
+
+编辑 `~/.codex/config.toml`：
+
+```toml
+[[skills.config]]
+path = "/Users/tanzhiwen/.agents/skills/<name>/SKILL.md"
+enabled = false
+```
+
+重启 Codex。
+
+## 与 Claude / ChatGPT 的关系
+
+OpenAI 说明 ChatGPT / Codex / API 之间的 skills **不会自动同步**。本仓库的做法是把 `SKILL.md` 作为单一数据源，分别软链到：
+
+- `~/.claude/skills/`（Claude Code，`install-claude.sh`）
+- `~/.agents/skills/`（Codex CLI，`install-codex.sh`）
+
+两边格式互通，无需转换。

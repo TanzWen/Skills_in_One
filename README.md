@@ -16,7 +16,8 @@ Skills_in_One/
 │   └── my-skill/            ← 复制此目录新建 skill
 ├── scripts/
 │   ├── install-claude.sh    ← 把 skills 软链到 ~/.claude/skills
-│   └── export.sh            ← 把某个 SKILL.md 导出成可粘贴的 prompt
+│   ├── install-codex.sh     ← 把 skills 软链到 ~/.agents/skills（Codex 原生）
+│   └── export.sh            ← 把某个 SKILL.md 导出成可粘贴的 prompt（给 Gemini）
 └── docs/
     ├── claude.md            ← 在 Claude Code 中使用
     ├── codex.md             ← 在 Codex CLI 中使用
@@ -37,7 +38,7 @@ cp -R templates/my-skill skills/my-new-skill
 | 平台 | 方法 | 详见 |
 |---|---|---|
 | Claude Code | `bash scripts/install-claude.sh` 软链到 `~/.claude/skills/` | [docs/claude.md](docs/claude.md) |
-| Codex CLI | `bash scripts/export.sh skills/<name>` 复制输出到 `AGENTS.md` 或 `--system` | [docs/codex.md](docs/codex.md) |
+| Codex CLI | `bash scripts/install-codex.sh` 软链到 `~/.agents/skills/`（原生支持） | [docs/codex.md](docs/codex.md) |
 | Gemini Gem | `bash scripts/export.sh skills/<name>` 复制输出粘贴到 Gem 的 Instructions | [docs/gemini.md](docs/gemini.md) |
 
 ## 设计原则
