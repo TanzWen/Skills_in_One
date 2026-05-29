@@ -2,7 +2,7 @@
 name: bazi
 description: 解八字命盘。用户提供八字排盘截图或文字时使用此技能，进行详细的八字命理分析。
 user-invocable: true
-argument-hint: [截图路径、直接粘贴截图，或文字描述如"壬午戊申壬子丁未，男"]
+argument-hint: 截图路径、直接粘贴截图，或文字描述如"壬午戊申壬子丁未，男"
 ---
 
 # 八字命理分析
